@@ -9,8 +9,14 @@ export const MainContextProvider = ({ children }) => {
   const [currentGuess, setCurrentGuess] = useState(0)
 
   useEffect(() => {
-    setWord(words[Math.round(Math.random() * words.length)])
+    init()
   }, [])
+
+  const init = () => {
+    setWord(words[Math.round(Math.random() * words.length)])
+    setGuesses(["", "", "", "", "", ""])
+    setCurrentGuess(0)
+  }
 
   const won = () => {
     return guesses[currentGuess - 1] === word
@@ -82,7 +88,10 @@ export const MainContextProvider = ({ children }) => {
         handleKey,
         allGuesses,
         exactGuess,
-        inexactGuess
+        inexactGuess,
+        won,
+        lost,
+        init
       }}
     >
       {children}
