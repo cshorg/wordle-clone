@@ -8,7 +8,6 @@ function App() {
     useContext(MainContext)
 
   useEffect(() => {
-    console.log(word)
     window.addEventListener("keyup", handleKey)
 
     return () => {
