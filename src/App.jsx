@@ -17,21 +17,25 @@ function App() {
   }, [handleKey])
 
   return (
-    <div className="flex justify-center w-screen text-white h-lvh bg-neutral-950 font-inter">
+    <div className="flex justify-center w-screen text-white h-dvh bg-neutral-950 font-inter">
       <div className="flex flex-col items-center">
-        <h1 className="mt-10 mb-8 text-4xl font-semibold">Wordle Clone</h1>
+        <h1 className="my-4 text-4xl font-semibold md:mt-8 md:mb-5">
+          Wordle Clone
+        </h1>
 
-        {won() && <div className="mb-2 text-green-400">You Won!</div>}
-        {lost() && <div className="mb-2 text-red-400">You Lost!</div>}
+        <div className="flex items-center justify-center gap-4 md:mb-2">
+          {won() && <div className="mb-2 text-green-400">You Won!</div>}
+          {lost() && <div className="mb-2 text-red-400">You Lost!</div>}
 
-        {(won() || lost()) && (
-          <button
-            className="py-1 px-3 border-[2px] border-border rounded-md hover:bg-border transition ease-in mb-2"
-            onClick={() => init()}
-          >
-            Play Again
-          </button>
-        )}
+          {(won() || lost()) && (
+            <button
+              className="py-1 px-3 border-[2px] border-border rounded-md hover:bg-border transition ease-in mb-2"
+              onClick={() => init()}
+            >
+              Play Again
+            </button>
+          )}
+        </div>
 
         {guesses.map((_, i) => (
           <Guess
