@@ -12,7 +12,7 @@ const Guess = ({ word, guess, isGuessed }) => {
 
         return (
           <div
-            className={`${bgColor} w-[62px] h-[62px] border-[2px] border-border rounded-sm flex items-center justify-center uppercase text-[18px] font-semibold`}
+            className={`${bgColor} w-[52px] h-[52px] sm:w-[62px] sm:h-[62px] border-[2px] border-border rounded-sm flex items-center justify-center uppercase text-[18px] font-semibold`}
           >
             {guess[i]}
           </div>
