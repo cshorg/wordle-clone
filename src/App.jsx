@@ -16,7 +16,7 @@ function App() {
   }, [handleKey])
 
   return (
-    <div className="flex justify-center w-screen text-white h-dvh bg-neutral-950 font-inter">
+    <div className="flex justify-center w-screen h-full text-white bg-neutral-950 font-inter">
       <div className="flex flex-col items-center">
         <h1 className="my-4 text-4xl font-semibold md:mt-8 md:mb-5">
           Wordle Clone
