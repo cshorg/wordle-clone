@@ -23,8 +23,12 @@ function App() {
         </h1>
 
         <div className="flex items-center justify-center gap-4 md:mb-2">
-          {won() && <div className="mb-2 text-green-400">You Won!</div>}
-          {lost() && <div className="mb-2 text-red-400">You Lost!</div>}
+          {won() && (
+            <div className="mb-2 font-semibold text-green-400">You Won!</div>
+          )}
+          {lost() && (
+            <div className="mb-2 font-semibold text-red-400">You Lost!</div>
+          )}
 
           {(won() || lost()) && (
             <button

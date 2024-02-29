@@ -12,7 +12,7 @@ const Keyboard = () => {
   const qwerty = ["qwertyuiop", "asdfghjkl", "zxcvbnm"]
 
   return (
-    <div className="relative mt-8">
+    <div className="relative mt-4">
       <button
         onClick={() => handleKey({ key: "Enter" })}
         className="top-[132px] md:left-[5px] text-[10px] absolute h-[58px] w-[43px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
