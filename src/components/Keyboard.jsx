@@ -28,12 +28,12 @@ const Keyboard = () => {
       {qwerty.map((row, i) => (
         <div className="flex justify-center gap-1 mb-2">
           {row.split("").map((key) => {
-            const bgColor = exactGuess().includes(key)
-              ? "bg-green-400"
-              : inexactGuess().includes(key)
-              ? "bg-yellow-400 hover:opacity-100"
+            const bgColor = inexactGuess().includes(key)
+              ? "bg-yellow-400 transition ease-in hover:opacity-100"
+              : exactGuess().includes(key)
+              ? "bg-green-400 transition ease-in"
               : allGuesses().includes(key)
-              ? "bg-gray-400 hover:opacity-100"
+              ? "bg-gray-400 transition ease-in hover:opacity-100"
               : ""
 
             return (

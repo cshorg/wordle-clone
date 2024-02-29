@@ -5,9 +5,9 @@ const Guess = ({ word, guess, isGuessed }) => {
         const bgColor = !isGuessed
           ? ""
           : guess[i] === word[i]
-          ? "bg-green-400"
+          ? "bg-green-400 transition ease-in"
           : word.includes(guess[i])
-          ? "bg-yellow-400"
+          ? "bg-yellow-400 transition ease-in"
           : ""
 
         return (
