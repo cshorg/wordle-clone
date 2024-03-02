@@ -12,16 +12,16 @@ const Keyboard = () => {
   const qwerty = ["qwertyuiop", "asdfghjkl", "zxcvbnm"]
 
   return (
-    <div className="relative mt-4">
+    <div className="relative mt-10">
       <button
         onClick={() => handleKey({ key: "Enter" })}
-        className="top-[132px] md:left-[5px] text-[10px] absolute h-[58px] w-[43px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
+        className="top-[132px] md:left-[5px] border border-border text-[10px] absolute h-[58px] w-[43px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
       >
         enter
       </button>
       <button
         onClick={() => handleKey({ key: "Backspace" })}
-        className="top-[132px] md:right-[5px] right-[-1px] text-[10px] absolute h-[58px] w-[43px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
+        className="top-[132px] md:right-[5px] border border-border right-[-1px] text-[10px] absolute h-[58px] w-[43px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
       >
         remove
       </button>
@@ -40,7 +40,7 @@ const Keyboard = () => {
               <button
                 key={key}
                 onClick={() => handleClick(key)}
-                className={`${bgColor} h-[58px] w-[27px] md:w-[42px] bg-button rounded-md flex items-center justify-center md:text-[18px] uppercase font-semibold hover:opacity-70`}
+                className={`${bgColor} h-[58px] border border-border w-[27px] md:w-[42px] bg-button rounded-md flex items-center justify-center md:text-[18px] uppercase font-semibold hover:opacity-70`}
               >
                 {key}
               </button>

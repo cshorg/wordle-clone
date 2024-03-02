@@ -2,6 +2,7 @@ import Keyboard from "./components/Keyboard"
 import Guess from "./components/Guess"
 import { useContext, useEffect } from "react"
 import { MainContext } from "./context/MainContext"
+import Navbar from "./components/Navbar"
 
 function App() {
   const { word, guesses, currentGuess, handleKey, won, lost, init } =
@@ -17,11 +18,8 @@ function App() {
 
   return (
     <div className="flex justify-center w-screen text-white min-h-dvh bg-neutral-950 font-inter">
-      <div className="flex flex-col items-center">
-        <h1 className="my-4 text-4xl font-semibold md:mt-8 md:mb-5">
-          Wordle Clone
-        </h1>
-
+      <Navbar />
+      <div className="flex flex-col items-center mt-[52px] ">
         <div className="flex items-center justify-center gap-4 md:mb-2">
           {won() && (
             <div className="mb-2 font-semibold text-green-400">You Won!</div>
@@ -40,15 +38,16 @@ function App() {
           )}
         </div>
 
-        {guesses.map((_, i) => (
-          <Guess
-            key={i}
-            word={word}
-            guess={guesses[i]}
-            isGuessed={i < currentGuess}
-          />
-        ))}
-
+        <div className="mt-6">
+          {guesses.map((_, i) => (
+            <Guess
+              key={i}
+              word={word}
+              guess={guesses[i]}
+              isGuessed={i < currentGuess}
+            />
+          ))}
+        </div>
         <Keyboard />
       </div>
     </div>
