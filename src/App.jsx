@@ -4,6 +4,13 @@ import { useContext, useEffect } from "react"
 import { MainContext } from "./context/MainContext"
 import Navbar from "./components/Navbar"
 
+// finish themes with selected type
+// implement headless ui dialog for stats/correct word/replay
+// implement headless ui dialog for help/questions
+
+// fix keyboard coloring, no green currently
+// fix yellow tiles even when that letter is not used anymore
+
 function App() {
   const { word, guesses, currentGuess, handleKey, won, lost, init } =
     useContext(MainContext)
