@@ -36,7 +36,7 @@ const NavbarButton = ({ icon, dropdown, items, onClick }) => {
       >
         {dropdown && (
           <Menu.Items
-            className="absolute right-0 px-2 py-2 cursor-pointer z-10 w-48 mt-[12px] text-sm origin-top-right border rounded-md shadow-lg border-border text-neutral-400 bg-button "
+            className="absolute right-0 px-2 py-2 cursor-pointer z-10 w-48 mt-[12px] text-sm origin-top-right border rounded-md shadow-lg border-border text-neutral-400 bg-button/100 "
             as="div"
           >
             {items.map((item, i) => {

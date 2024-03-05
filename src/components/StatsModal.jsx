@@ -52,7 +52,7 @@ const StatsModal = ({ status }) => {
                   <p className="flex justify-center mt-4 font-semibold">
                     The correct word was WORDS!
                   </p>
-                  <div className="flex flex-wrap justify-between gap-2 mt-6 font-semibold">
+                  <div className="flex flex-wrap items-center justify-center gap-2 mt-6 font-semibold md:justify-between">
                     <div className="flex bg-border/30 flex-col justify-center gap-2 items-center h-[100px] w-[220px] border border-border rounded-md">
                       <span className="text-6xl font-semibold">0</span>
                       <div className="text-xs">Played</div>
