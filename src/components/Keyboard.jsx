@@ -1,5 +1,6 @@
 import { useContext } from "react"
 import { MainContext } from "../context/MainContext"
+import { PiBackspace } from "react-icons/pi"
 
 const Keyboard = () => {
   const { allGuesses, exactGuess, inexactGuess, handleKey } =
@@ -23,7 +24,7 @@ const Keyboard = () => {
         onClick={() => handleKey({ key: "Backspace" })}
         className="top-[132px] md:right-[5px] border border-border right-[0px] text-[10px] absolute h-[58px] w-[50px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
       >
-        remove
+        <PiBackspace size={24} />
       </button>
       {qwerty.map((row, i) => (
         <div className="flex justify-center gap-1 mb-2">
