@@ -1,13 +1,32 @@
 import { Menu, Transition } from "@headlessui/react"
 
-const NavbarButton = ({ icon, dropdown, items }) => {
+const NavbarButton = ({ icon, dropdown, items, onClick }) => {
+  //   <button
+  //   onClick={onClick}
+  //   className="flex items-center justify-center transition duration-100 ease-in border rounded-full w-9 h-9 border-border hover:bg-neutral-800 bg-neutral-900/80"
+  // >
+  //   {icon}
+  // </button>
   return (
     <Menu as="div" className="relative inline-block text-left">
-      <Menu.Button className="flex items-center justify-center transition duration-100 ease-in border rounded-full w-9 h-9 border-border hover:bg-neutral-800 bg-neutral-900/80">
-        {icon}
-      </Menu.Button>
+      {dropdown ? (
+        <Menu.Button
+          onClick={onClick}
+          className="flex items-center justify-center transition duration-100 ease-in border rounded-full w-9 h-9 border-border hover:bg-neutral-800 bg-neutral-900/80"
+        >
+          {icon}
+        </Menu.Button>
+      ) : (
+        <button
+          onClick={onClick}
+          className="flex items-center justify-center transition duration-100 ease-in border rounded-full w-9 h-9 border-border hover:bg-neutral-800 bg-neutral-900/80"
+        >
+          {icon}
+        </button>
+      )}
+
       <Transition
-        as="Fragment"
+        as="div"
         enter="transition ease-out duration-100"
         enterFrom="transform opacity-0 scale-95"
         enterTo="transform opacity-100 scale-100"
@@ -18,7 +37,7 @@ const NavbarButton = ({ icon, dropdown, items }) => {
         {dropdown && (
           <Menu.Items
             className="absolute right-0 px-2 py-2 cursor-pointer z-10 w-48 mt-[12px] text-sm origin-top-right border rounded-md shadow-lg border-border text-neutral-400 bg-button "
-            as="Div"
+            as="div"
           >
             {items.map((item, i) => {
               const selected = item.includes("Dark") ? "text-indigo-400" : ""
@@ -26,7 +45,7 @@ const NavbarButton = ({ icon, dropdown, items }) => {
               return (
                 <Menu.Item
                   className={` ${selected} w-full p-2 rounded hover:bg-[#252429] flex items-center gap-2`}
-                  as="Div"
+                  as="div"
                   key={i}
                 >
                   {item}

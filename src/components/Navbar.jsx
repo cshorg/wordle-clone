@@ -3,8 +3,13 @@ import { BiStats } from "react-icons/bi"
 import { MdOutlineDarkMode, MdOutlineLightMode } from "react-icons/md"
 import { BsQuestion } from "react-icons/bs"
 import { RiComputerLine } from "react-icons/ri"
+import { useContext } from "react"
+import { MainContext } from "../context/MainContext"
 
 const Navbar = () => {
+  const { statsModal, setStatsModal, helpModal, setHelpModal } =
+    useContext(MainContext)
+
   return (
     <nav className="h-[56px] w-screen bg-button fixed top-0 backdrop-blur border-b border-border">
       <div className="flex items-center justify-between h-full px-4 md:px-10">
@@ -12,8 +17,14 @@ const Navbar = () => {
           Wordle clone
         </div>
         <div className="flex gap-2 md:gap-3">
-          <NavbarButton icon={<BiStats size={20} />} />
-          <NavbarButton icon={<BsQuestion size={22} />} />
+          <NavbarButton
+            onClick={() => setStatsModal(!statsModal)}
+            icon={<BiStats size={20} />}
+          />
+          <NavbarButton
+            onClick={() => setHelpModal(!helpModal)}
+            icon={<BsQuestion size={22} />}
+          />
           <NavbarButton
             icon={<MdOutlineDarkMode size={18} />}
             dropdown={true}

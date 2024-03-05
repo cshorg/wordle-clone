@@ -7,6 +7,8 @@ export const MainContextProvider = ({ children }) => {
   const [word, setWord] = useState("")
   const [guesses, setGuesses] = useState(["", "", "", "", "", ""])
   const [currentGuess, setCurrentGuess] = useState(0)
+  const [helpModal, setHelpModal] = useState(false)
+  const [statsModal, setStatsModal] = useState(false)
 
   useEffect(() => {
     init()
@@ -19,11 +21,21 @@ export const MainContextProvider = ({ children }) => {
   }
 
   const won = () => {
-    return guesses[currentGuess - 1] === word
+    if (guesses[currentGuess - 1] === word) {
+      setStatsModal(true)
+
+      return true
+    }
+    return false
   }
 
   const lost = () => {
-    return currentGuess === 6
+    if (currentGuess === 6) {
+      setStatsModal(true)
+
+      return true
+    }
+    return false
   }
 
   const allGuesses = () => {
@@ -91,7 +103,11 @@ export const MainContextProvider = ({ children }) => {
         inexactGuess,
         won,
         lost,
-        init
+        init,
+        statsModal,
+        setStatsModal,
+        helpModal,
+        setHelpModal
       }}
     >
       {children}
