@@ -7,30 +7,18 @@ import StatsModal from "./components/StatsModal"
 import HelpModal from "./components/HelpModal"
 
 // finish themes with selected type
-// implement headless ui dialog for stats/correct word/replay
-// implement headless ui dialog for help/questions
-
-// fix keyboard coloring, no green currently
+// fix keyboard coloring, no green currently **
 // fix yellow tiles even when that letter is not used anymore
+
 // for some reason takes an extra enter at the end to submit, could be a rerender error
+// extra enter issue comes down to rendering the modals, game is finishing just takes two enters for modal to show
+
+// add toast for "not correct guess"
 // optimize component structure
 
-// stop submit from being called more than once, hitting enter on dialog takes you back to previous game then you can spam enter for infinit loop
-
 function App() {
-  const {
-    word,
-    guesses,
-    currentGuess,
-    handleKey,
-    won,
-    lost,
-    init,
-    statsModal,
-    setStatsModal,
-    helpModal,
-    setHelpModal
-  } = useContext(MainContext)
+  const { won, lost, word, setStatsModal, guesses, currentGuess, handleKey } =
+    useContext(MainContext)
 
   useEffect(() => {
     window.addEventListener("keyup", handleKey)
@@ -42,12 +30,14 @@ function App() {
 
   return (
     <>
-      <StatsModal status={{ statsModal, setStatsModal }} />
-      <HelpModal status={{ helpModal, setHelpModal }} />
+      {won() ? setStatsModal(true) : lost() && setStatsModal(true)}
+
+      <StatsModal />
+      <HelpModal />
+
       <div className="flex justify-center w-screen text-white min-h-dvh bg-neutral-950 font-inter">
         <Navbar />
-
-        <div className="flex flex-col items-center mt-[52px] ">
+        <div className="flex flex-col items-center mt-[52px]  rounded-md">
           <div className="mt-6">
             {guesses.map((_, i) => (
               <Guess

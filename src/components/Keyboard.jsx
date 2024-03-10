@@ -16,24 +16,26 @@ const Keyboard = () => {
     <div className="relative mt-10">
       <button
         onClick={() => handleKey({ key: "Enter" })}
-        className="top-[132px] md:left-[5px] border border-border text-[10px] absolute h-[58px] w-[50px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
+        className="top-[132px] md:left-[5px] border border-border text-[10px] absolute h-[58px] w-[50px] md:w-[60px]  rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
       >
         enter
       </button>
+
       <button
         onClick={() => handleKey({ key: "Backspace" })}
-        className="top-[132px] md:right-[5px] border border-border right-[0px] text-[10px] absolute h-[58px] w-[50px] md:w-[60px] bg-button rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
+        className="top-[132px] md:right-[5px] border border-border right-[0px] text-[10px] absolute h-[58px] w-[50px] md:w-[60px]  rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
       >
         <PiBackspace size={24} />
       </button>
+
       {qwerty.map((row, i) => (
-        <div className="flex justify-center gap-1 mb-2">
+        <div key={i} className="flex justify-center gap-1 mb-2">
           {row.split("").map((key) => {
-            const bgColor = inexactGuess().includes(key)
-              ? "bg-yellow-400 transition ease-in hover:opacity-100"
-              : exactGuess().includes(key)
+            const bgColor = exactGuess().includes(key.toLowerCase())
               ? "bg-green-400 transition ease-in"
-              : allGuesses().includes(key)
+              : inexactGuess().includes(key.toLowerCase())
+              ? "bg-yellow-400 transition ease-in hover:opacity-100"
+              : allGuesses().includes(key.toLowerCase())
               ? "bg-gray-400 transition ease-in hover:opacity-100"
               : ""
 
@@ -41,7 +43,7 @@ const Keyboard = () => {
               <button
                 key={key}
                 onClick={() => handleClick(key)}
-                className={`${bgColor} h-[58px] border border-border w-[32px] md:w-[42px] bg-button rounded-md flex items-center justify-center md:text-[18px] uppercase font-semibold hover:opacity-70`}
+                className={`${bgColor} h-[58px] border border-border w-[32px] md:w-[42px] rounded-md flex items-center justify-center md:text-[18px] uppercase font-semibold hover:opacity-70`}
               >
                 {key}
               </button>

@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react"
+import toast from "react-hot-toast"
 import words from "../api/words.json"
 
 export const MainContext = createContext()
@@ -7,8 +8,23 @@ export const MainContextProvider = ({ children }) => {
   const [word, setWord] = useState("")
   const [guesses, setGuesses] = useState(["", "", "", "", "", ""])
   const [currentGuess, setCurrentGuess] = useState(0)
+  const [gameState, setGameState] = useState(null)
+
   const [helpModal, setHelpModal] = useState(false)
   const [statsModal, setStatsModal] = useState(false)
+
+  const [playerStats, setPlayerStats] = useState(() => {
+    const savedStats = localStorage.getItem("wordleStats")
+    return savedStats
+      ? JSON.parse(savedStats)
+      : {
+          played: 0,
+          total: 0,
+          streak: 0,
+          percent: 0,
+          completeGames: 0
+        }
+  })
 
   useEffect(() => {
     init()
@@ -18,11 +34,25 @@ export const MainContextProvider = ({ children }) => {
     setWord(words[Math.round(Math.random() * words.length)])
     setGuesses(["", "", "", "", "", ""])
     setCurrentGuess(0)
+    setGameState(null)
   }
 
   const won = () => {
     if (guesses[currentGuess - 1] === word) {
-      setStatsModal(true)
+      let currentStats = { ...playerStats }
+      currentStats.played += 1
+      currentStats.total += 1
+      currentStats.streak += 1
+      currentStats.completeGames += 1
+      currentStats.percent =
+        (currentStats.total / currentStats.completeGames) * 100
+
+      setPlayerStats(currentStats)
+      localStorage.setItem("wordleStats", JSON.stringify(currentStats))
+
+      setGameState("won")
+      setGuesses(["", "", "", "", "", ""])
+      setCurrentGuess(0)
 
       return true
     }
@@ -31,7 +61,19 @@ export const MainContextProvider = ({ children }) => {
 
   const lost = () => {
     if (currentGuess === 6) {
-      setStatsModal(true)
+      let currentStats = { ...playerStats }
+      currentStats.played += 1
+      currentStats.streak = 0
+      currentStats.completeGames += 1
+      currentStats.percent =
+        (currentStats.total / currentStats.completeGames) * 100
+
+      setPlayerStats(currentStats)
+      localStorage.setItem("wordleStats", JSON.stringify(currentStats))
+
+      setGameState("lost")
+      setGuesses(["", "", "", "", "", ""])
+      setCurrentGuess(0)
 
       return true
     }
@@ -44,7 +86,7 @@ export const MainContextProvider = ({ children }) => {
 
   const exactGuess = () => {
     return word.split("").filter((letter, i) => {
-      guesses
+      return guesses
         .slice(0, currentGuess)
         .map((word) => word[i])
         .includes(letter)
@@ -56,15 +98,31 @@ export const MainContextProvider = ({ children }) => {
   }
 
   const submitGuess = () => {
-    if (words.includes(guesses[currentGuess])) {
-      setCurrentGuess(currentGuess + 1)
-    } else {
-      console.log("Not a word!")
-    }
+    setTimeout(() => {
+      if (words.includes(guesses[currentGuess])) {
+        return setCurrentGuess(currentGuess + 1)
+      } else {
+        if (guesses[currentGuess].length === 5) {
+          toast("Not a valid word!", {
+            icon: "⚠️",
+            style: {
+              borderRadius: "5px",
+              background: "rgba(24,24,27)",
+              border: "1px solid rgba(48,48,54)",
+              color: "#fff"
+            }
+          })
+        }
+      }
+    }, 100)
   }
 
   const handleKey = (e) => {
+    if (statsModal || helpModal) return
+
     if (won() || lost()) return
+
+    console.log(word)
 
     if (e.key === "Enter") return submitGuess()
 
@@ -107,7 +165,8 @@ export const MainContextProvider = ({ children }) => {
         statsModal,
         setStatsModal,
         helpModal,
-        setHelpModal
+        setHelpModal,
+        gameState
       }}
     >
       {children}

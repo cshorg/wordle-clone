@@ -1,10 +1,10 @@
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useContext } from "react"
 import { Dialog, Transition } from "@headlessui/react"
-import { VscDebugRestart } from "react-icons/vsc"
 import { IoCloseSharp } from "react-icons/io5"
+import { MainContext } from "../context/MainContext"
 
-const HelpModal = ({ status }) => {
-  const { helpModal, setHelpModal } = status
+const HelpModal = () => {
+  const { helpModal, setHelpModal } = useContext(MainContext)
 
   return (
     <Transition.Root show={helpModal} as={Fragment}>
@@ -37,7 +37,7 @@ const HelpModal = ({ status }) => {
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
               <Dialog.Panel className="relative p-6 overflow-hidden text-left transition-all transform border rounded-lg shadow-xl border-border bg-neutral-900 sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="text-white">
+                <div className="mb-4 text-white">
                   <div className="flex justify-end w-full ">
                     <div
                       className="cursor-pointer hover:opacity-80"
@@ -84,10 +84,6 @@ const HelpModal = ({ status }) => {
                     </li>
                     <li>Goodluck and have fun!</li>
                   </ul>
-
-                  <button className="w-full p-2 mt-4 font-semibold transition duration-100 ease-in bg-indigo-600 border border-indigo-400 rounded-md hover:bg-opacity-80 text-md">
-                    Restart Game
-                  </button>
                 </div>
               </Dialog.Panel>
             </Transition.Child>

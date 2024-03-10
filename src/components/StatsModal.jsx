@@ -1,10 +1,22 @@
-import { Fragment, useEffect, useRef, useState } from "react"
+import { Fragment, useContext, useEffect, useRef, useState } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { VscDebugRestart } from "react-icons/vsc"
 import { IoCloseSharp } from "react-icons/io5"
+import { MainContext } from "../context/MainContext"
 
-const StatsModal = ({ status }) => {
-  const { statsModal, setStatsModal } = status
+const StatsModal = ({ isOpen }) => {
+  const { statsModal, setStatsModal, word, setHelpModal, gameState, init } =
+    useContext(MainContext)
+
+  const handleRestart = () => {
+    init()
+    setStatsModal(false)
+  }
+
+  const handleLearn = () => {
+    setStatsModal(false)
+    setHelpModal(true)
+  }
 
   return (
     <Transition.Root show={statsModal} as={Fragment}>
@@ -47,27 +59,48 @@ const StatsModal = ({ status }) => {
                     </div>
                   </div>
                   <h1 className="text-xl font-semibold text-center uppercase ">
-                    Information
+                    Statistics
                   </h1>
-                  <p className="flex justify-center mt-4 font-semibold">
-                    The correct word was WORDS!
-                  </p>
+
+                  {gameState === "won" || gameState === "lost" ? (
+                    <>
+                      <h2 className="mt-4 text-lg font-semibold text-center">
+                        You <a className="uppercase">{gameState}</a>, the
+                        correct word is <a className="uppercase">{word}</a>!
+                      </h2>
+                    </>
+                  ) : null}
+
                   <div className="flex flex-wrap items-center justify-center gap-2 mt-6 font-semibold md:justify-between">
                     <div className="flex bg-border/30 flex-col justify-center gap-2 items-center h-[100px] w-[220px] border border-border rounded-md">
-                      <span className="text-6xl font-semibold">0</span>
+                      <span className="text-6xl font-semibold">
+                        {JSON.parse(localStorage.getItem("wordleStats"))
+                          ?.played || 0}
+                      </span>
                       <div className="text-xs">Played</div>
                     </div>
                     <div className="flex flex-col bg-border/30 justify-center gap-2 items-center h-[100px]  w-[220px] border border-border rounded-md">
-                      <span className="text-6xl font-semibold">0</span>
+                      <span className="text-6xl font-semibold">
+                        {JSON.parse(localStorage.getItem("wordleStats"))
+                          ?.streak || 0}
+                      </span>
                       <div className="text-xs">Win Streak</div>
                     </div>
                     <div className="flex flex-col bg-border/30 justify-center gap-2 items-center h-[100px] w-[220px] border border-border rounded-md">
-                      <span className="text-6xl font-semibold">0</span>
+                      <span className="text-6xl font-semibold">
+                        {JSON.parse(localStorage.getItem("wordleStats"))
+                          ?.total || 0}
+                      </span>
                       <div className="text-xs">Total Wins</div>
                     </div>
                     <div className="flex flex-col bg-border/30 justify-center gap-2 items-center h-[100px]  w-[220px] border border-border rounded-md">
                       <span className="relative text-6xl font-semibold">
-                        0
+                        {Math.round(
+                          parseFloat(
+                            JSON.parse(localStorage.getItem("wordleStats"))
+                              ?.percent
+                          )
+                        ) || 0}
                         <span className="absolute text-xl font-bold  right-[-20px] top-[20px]">
                           %
                         </span>
@@ -76,12 +109,19 @@ const StatsModal = ({ status }) => {
                     </div>
                   </div>
                   <div className="flex flex-col gap-2">
-                    <button className="w-full p-2 mt-8 text-sm text-center transition duration-100 ease-in border rounded-md hover:bg-border/50 bg-neutral-900 border-border ">
+                    <button
+                      onClick={handleLearn}
+                      className="w-full p-2 mt-8 text-sm text-center transition duration-100 ease-in border rounded-md hover:bg-border/50 bg-neutral-900 border-border "
+                    >
                       Learn how to play?
                     </button>
 
-                    <button className="w-full p-2 font-semibold transition duration-100 ease-in bg-indigo-600 border border-indigo-400 rounded-md hover:bg-opacity-80 text-md">
-                      Restart Game
+                    <button
+                      className="inline-flex items-center justify-center gap-2 p-2 transition duration-100 ease-in bg-indigo-600 border border-indigo-400 rounded-md hover:bg-indigo-600/90"
+                      onClick={handleRestart}
+                    >
+                      <VscDebugRestart />
+                      Play Again
                     </button>
                   </div>
                 </div>
