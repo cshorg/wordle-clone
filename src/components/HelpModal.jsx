@@ -22,7 +22,7 @@ const HelpModal = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-neutral-200 dark:bg-border" />
+          <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-neutral-200 dark:bg-border/50" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
