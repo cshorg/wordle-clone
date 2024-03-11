@@ -15,6 +15,11 @@ const StatsModal = () => {
     theme
   } = useContext(MainContext)
 
+  const handleClose = () => {
+    setStatsModal(false)
+    init()
+  }
+
   const handleRestart = () => {
     init()
     setStatsModal(false)
@@ -30,7 +35,7 @@ const StatsModal = () => {
       <Dialog
         as="div"
         className={`relative z-10 ${theme}`}
-        onClose={() => setStatsModal(false)}
+        onClose={() => handleClose()}
       >
         <Transition.Child
           as={Fragment}
