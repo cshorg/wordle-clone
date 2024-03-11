@@ -7,18 +7,22 @@ import StatsModal from "./components/StatsModal"
 import HelpModal from "./components/HelpModal"
 
 // finish themes with selected type
-// fix keyboard coloring, no green currently **
+
 // fix yellow tiles even when that letter is not used anymore
 
-// for some reason takes an extra enter at the end to submit, could be a rerender error
-// extra enter issue comes down to rendering the modals, game is finishing just takes two enters for modal to show
-
-// add toast for "not correct guess"
 // optimize component structure
 
 function App() {
-  const { won, lost, word, setStatsModal, guesses, currentGuess, handleKey } =
-    useContext(MainContext)
+  const {
+    won,
+    lost,
+    word,
+    setStatsModal,
+    guesses,
+    currentGuess,
+    handleKey,
+    theme
+  } = useContext(MainContext)
 
   useEffect(() => {
     window.addEventListener("keyup", handleKey)
@@ -29,13 +33,13 @@ function App() {
   }, [handleKey])
 
   return (
-    <>
+    <div className={`${theme}`}>
       {won() ? setStatsModal(true) : lost() && setStatsModal(true)}
 
       <StatsModal />
       <HelpModal />
 
-      <div className="flex justify-center w-screen text-white min-h-dvh bg-neutral-950 font-inter">
+      <div className="flex justify-center w-screen text-neutral-900 dark:text-white min-h-dvh bg-[#d2d2e386] dark:bg-neutral-950 font-inter">
         <Navbar />
         <div className="flex flex-col items-center mt-[52px]  rounded-md">
           <div className="mt-6">
@@ -51,7 +55,7 @@ function App() {
           <Keyboard />
         </div>
       </div>
-    </>
+    </div>
   )
 }
 

@@ -16,7 +16,7 @@ const Keyboard = () => {
     <div className="relative mt-10">
       <button
         onClick={() => handleKey({ key: "Enter" })}
-        className="top-[132px] md:left-[5px] border border-border text-[10px] absolute h-[58px] w-[50px] md:w-[60px]  rounded-md flex items-center justify-center  uppercase font-semibold  hover:opacity-70"
+        className="top-[132px] md:left-[5px] border border-border text-[10px] absolute h-[58px] w-[50px] md:w-[60px]  rounded-md flex items-center justify-center  uppercase font-bold hover:opacity-70"
       >
         enter
       </button>

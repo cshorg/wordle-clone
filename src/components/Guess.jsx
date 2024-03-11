@@ -2,6 +2,7 @@ const Guess = ({ word, guess, isGuessed }) => {
   return (
     <div className="flex gap-2 mt-2">
       {new Array(5).fill(0).map((_, i) => {
+        //if letter is green than dont set yellow unless there is a dupe letter in the word.
         const bgColor = !isGuessed
           ? ""
           : guess[i] === word[i]

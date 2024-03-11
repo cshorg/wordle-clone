@@ -1,12 +1,19 @@
-import { Fragment, useContext, useEffect, useRef, useState } from "react"
+import { Fragment, useContext } from "react"
 import { Dialog, Transition } from "@headlessui/react"
 import { VscDebugRestart } from "react-icons/vsc"
 import { IoCloseSharp } from "react-icons/io5"
 import { MainContext } from "../context/MainContext"
 
-const StatsModal = ({ isOpen }) => {
-  const { statsModal, setStatsModal, word, setHelpModal, gameState, init } =
-    useContext(MainContext)
+const StatsModal = () => {
+  const {
+    statsModal,
+    setStatsModal,
+    word,
+    setHelpModal,
+    gameState,
+    init,
+    theme
+  } = useContext(MainContext)
 
   const handleRestart = () => {
     init()
@@ -22,7 +29,7 @@ const StatsModal = ({ isOpen }) => {
     <Transition.Root show={statsModal} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-10"
+        className={`relative z-10 ${theme}`}
         onClose={() => setStatsModal(false)}
       >
         <Transition.Child
@@ -34,7 +41,7 @@ const StatsModal = ({ isOpen }) => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-border" />
+          <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-neutral-200 dark:bg-border" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -48,8 +55,8 @@ const StatsModal = ({ isOpen }) => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative p-6 overflow-hidden text-left transition-all transform border rounded-lg shadow-xl border-border bg-neutral-900 sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="text-white">
+              <Dialog.Panel className="relative p-6 overflow-hidden text-left transition-all transform bg-white border rounded-lg shadow-xl border-neutral-200 dark:border-border dark:bg-neutral-900 sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="dark:text-white text-neutral-900">
                   <div className="flex justify-end w-full ">
                     <div
                       className="cursor-pointer hover:opacity-80"
@@ -72,28 +79,28 @@ const StatsModal = ({ isOpen }) => {
                   ) : null}
 
                   <div className="flex flex-wrap items-center justify-center gap-2 mt-6 font-semibold md:justify-between">
-                    <div className="flex bg-border/30 flex-col justify-center gap-2 items-center h-[100px] w-[220px] border border-border rounded-md">
+                    <div className="flex dark:bg-border/30 flex-col justify-center gap-2 items-center h-[100px] w-[220px] border border-neutral-200 dark:border-border rounded-md">
                       <span className="text-6xl font-semibold">
                         {JSON.parse(localStorage.getItem("wordleStats"))
                           ?.played || 0}
                       </span>
                       <div className="text-xs">Played</div>
                     </div>
-                    <div className="flex flex-col bg-border/30 justify-center gap-2 items-center h-[100px]  w-[220px] border border-border rounded-md">
+                    <div className="flex flex-col dark:bg-border/30 justify-center gap-2 items-center h-[100px]  w-[220px] border border-neutral-200 dark:border-border rounded-md">
                       <span className="text-6xl font-semibold">
                         {JSON.parse(localStorage.getItem("wordleStats"))
                           ?.streak || 0}
                       </span>
                       <div className="text-xs">Win Streak</div>
                     </div>
-                    <div className="flex flex-col bg-border/30 justify-center gap-2 items-center h-[100px] w-[220px] border border-border rounded-md">
+                    <div className="flex flex-col dark:bg-border/30 justify-center gap-2 items-center h-[100px] w-[220px] border border-neutral-200 dark:border-border rounded-md">
                       <span className="text-6xl font-semibold">
                         {JSON.parse(localStorage.getItem("wordleStats"))
                           ?.total || 0}
                       </span>
                       <div className="text-xs">Total Wins</div>
                     </div>
-                    <div className="flex flex-col bg-border/30 justify-center gap-2 items-center h-[100px]  w-[220px] border border-border rounded-md">
+                    <div className="flex flex-col border-neutral-200 dark:bg-border/30 justify-center gap-2 items-center h-[100px] w-[220px] border dark:border-border rounded-md">
                       <span className="relative text-6xl font-semibold">
                         {Math.round(
                           parseFloat(
@@ -111,13 +118,13 @@ const StatsModal = ({ isOpen }) => {
                   <div className="flex flex-col gap-2">
                     <button
                       onClick={handleLearn}
-                      className="w-full p-2 mt-8 text-sm text-center transition duration-100 ease-in border rounded-md hover:bg-border/50 bg-neutral-900 border-border "
+                      className="w-full p-2 mt-8 text-sm text-center text-white transition duration-100 ease-in border rounded-md hover:opacity-95 dark:hover:bg-border/50 bg-neutral-900 border-border "
                     >
                       Learn how to play?
                     </button>
 
                     <button
-                      className="inline-flex items-center justify-center gap-2 p-2 transition duration-100 ease-in bg-indigo-600 border border-indigo-400 rounded-md hover:bg-indigo-600/90"
+                      className="inline-flex items-center justify-center gap-2 p-2 text-white transition duration-100 ease-in bg-indigo-600 border border-indigo-400 rounded-md hover:bg-indigo-600/90"
                       onClick={handleRestart}
                     >
                       <VscDebugRestart />

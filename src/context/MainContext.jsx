@@ -13,6 +13,8 @@ export const MainContextProvider = ({ children }) => {
   const [helpModal, setHelpModal] = useState(false)
   const [statsModal, setStatsModal] = useState(false)
 
+  const [theme, setTheme] = useState("")
+
   const [playerStats, setPlayerStats] = useState(() => {
     const savedStats = localStorage.getItem("wordleStats")
     return savedStats
@@ -166,7 +168,9 @@ export const MainContextProvider = ({ children }) => {
         setStatsModal,
         helpModal,
         setHelpModal,
-        gameState
+        gameState,
+        theme,
+        setTheme
       }}
     >
       {children}

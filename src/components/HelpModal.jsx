@@ -4,13 +4,13 @@ import { IoCloseSharp } from "react-icons/io5"
 import { MainContext } from "../context/MainContext"
 
 const HelpModal = () => {
-  const { helpModal, setHelpModal } = useContext(MainContext)
+  const { helpModal, setHelpModal, theme } = useContext(MainContext)
 
   return (
     <Transition.Root show={helpModal} as={Fragment}>
       <Dialog
         as="div"
-        className="relative z-10"
+        className={`relative z-10 ${theme}`}
         onClose={() => setHelpModal(false)}
       >
         <Transition.Child
@@ -22,7 +22,7 @@ const HelpModal = () => {
           leaveFrom="opacity-100"
           leaveTo="opacity-0"
         >
-          <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-border" />
+          <div className="fixed inset-0 transition-opacity bg-opacity-75 bg-neutral-200 dark:bg-border" />
         </Transition.Child>
 
         <div className="fixed inset-0 z-10 w-screen overflow-y-auto">
@@ -36,8 +36,8 @@ const HelpModal = () => {
               leaveFrom="opacity-100 translate-y-0 sm:scale-100"
               leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
             >
-              <Dialog.Panel className="relative p-6 overflow-hidden text-left transition-all transform border rounded-lg shadow-xl border-border bg-neutral-900 sm:my-8 sm:w-full sm:max-w-lg">
-                <div className="mb-4 text-white">
+              <Dialog.Panel className="relative p-6 overflow-hidden text-left transition-all transform bg-white border rounded-lg shadow-xl dark:bg-neutral-900 dark:border-border border-neutral-200 sm:my-8 sm:w-full sm:max-w-lg">
+                <div className="mb-4 text-neutral-900 dark:text-white">
                   <div className="flex justify-end w-full ">
                     <div
                       className="cursor-pointer hover:opacity-80"
